@@ -33,9 +33,11 @@ project(projeto_final_embarcatech C CXX ASM)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
+file(GLOB LIBSOURCES "include/*.c")
+
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(projeto_final_embarcatech projeto_final_embarcatech.c )
+add_executable(projeto_final_embarcatech projeto_final_embarcatech.c ${LIBSOURCES} )
 
 pico_set_program_name(projeto_final_embarcatech "projeto_final_embarcatech")
 pico_set_program_version(projeto_final_embarcatech "0.1")
@@ -55,7 +57,7 @@ target_include_directories(projeto_final_embarcatech PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(projeto_final_embarcatech 
-        
+        pico_stdlib
         )
 
 pico_add_extra_outputs(projeto_final_embarcatech)
