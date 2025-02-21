@@ -57,6 +57,9 @@ target_include_directories(projeto_final_embarcatech PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(projeto_final_embarcatech 
+        hardware_adc
+        hardware_pwm
+        hardware_i2c
         pico_stdlib
         )
 
