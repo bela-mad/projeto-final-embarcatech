@@ -90,7 +90,7 @@ void ssd1306_fill(ssd1306_t *ssd, bool value) {
 }
 
 // Função que desenha um retângulo no display
-void ssd1306_rect(ssd1306_t *ssd, uint8_t top, uint8_t left, uint8_t width, uint8_t height, bool value, bool fill) {
+void ssd1306_rect(ssd1306_t *ssd, uint8_t top, uint8_t left, uint8_t width, uint8_t height, bool value) {
     for (uint8_t x = left; x < left + width; ++x) {
         ssd1306_pixel(ssd, x, top, value);
         ssd1306_pixel(ssd, x, top + height - 1, value);
@@ -99,14 +99,6 @@ void ssd1306_rect(ssd1306_t *ssd, uint8_t top, uint8_t left, uint8_t width, uint
     for (uint8_t y = top; y < top + height; ++y) {
         ssd1306_pixel(ssd, left, y, value);
         ssd1306_pixel(ssd, left + width - 1, y, value);
-    }
-
-    if (fill) {
-        for (uint8_t x = left + 1; x < left + width - 1; ++x) {
-            for (uint8_t y = top + 1; y < top + height - 1; ++y) {
-                ssd1306_pixel(ssd, x, y, value);
-            }
-        }
     }
 }
 
