@@ -163,6 +163,21 @@ void ssd1306_draw_char(ssd1306_t *ssd, char c, uint8_t x, uint8_t y) {
     else if (c == '?') {
         index = (c - '?' + 65) * 8;    // para '?'
     }
+    else if (c == '-') {
+        index = (c - '-' + 66) * 8;    // para '-'
+    }
+    else if (c == '.') {
+        index = (c - '.' + 67) * 8;    // para '.'
+    }
+    else if (c == '%') {
+        index = (c - '%' + 68) * 8;    // para '%'
+    }
+    else if (c == '/') {
+        index = (c - '/' + 69) * 8;    // para '/'
+    }
+    else if (c == '@') {
+        index = (c - '@' + 70) * 8;    // para '²'
+    }
 
     for (uint8_t i = 0; i < 8; ++i) {
         uint8_t line = font[index + i];
