@@ -58,7 +58,7 @@ int main() {
         sleep_ms(50);  // Pequena espera para evitar uso excessivo de CPU
     }
 
-    // Limpa o display, desenha a borda e a mensagem de boas-vindas e envia os dados para serem exibidos
+    // Limpa o display, desenha a borda e envia os dados para serem exibidos
     ssd1306_fill(&ssd, false);
     ssd1306_rect(&ssd, 2, 2, 124, 60, true);
     ssd1306_send_data(&ssd);
@@ -67,10 +67,15 @@ int main() {
 
         joystick_read_axis(&vrx_value, &vry_value); // lê os valores dos eixos do joystick
 
+        // Chuva fraca: abaixo de 5,0 mm/h
+        // Chuva moderada: entre 5,0 e 25 mm/h
+        // Chuva forte: entre 25,1 e 50 mm/h
+        // Chuva muito forte: acima de 50,0 mm/h
 
-
-
-
+        ssd1306_draw_string(&ssd, "Umidade: 100%", 10, 8);
+        ssd1306_draw_string(&ssd, "Chuva: 15mm@", 10, 19);
+        ssd1306_draw_string(&ssd, "Desloc: 20m/s", 10, 30);
+        ssd1306_draw_string(&ssd, "Risco Baixo", 20, 46);
 
         for (int ciclo_atv = 200; ciclo_atv <= 3000; ciclo_atv += 30) {
             pwm_set_duty_cycle_rgb(ciclo_atv, 209, 2, 2);
@@ -80,5 +85,7 @@ int main() {
             pwm_set_duty_cycle_rgb(ciclo_atv, 209, 2, 2);
             sleep_ms(10);
         }
+
+        ssd1306_send_data(&ssd);
     }
 }
