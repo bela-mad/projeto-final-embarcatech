@@ -15,6 +15,9 @@
     Amarelo: (255, 230, 0)
     pwm_set_duty_cycle_rgb(ciclo_atv, 255, 230, 0);
 
+    Laranja: (207, 80, 6)
+    pwm_set_duty_cycle_rgb(ciclo_atv, 207, 80, 6);
+
     Vermelho: (209, 2, 2)
     pwm_set_duty_cycle_rgb(ciclo_atv, 209, 2, 2);
 */ 
