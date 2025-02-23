@@ -22,7 +22,6 @@
     pwm_set_duty_cycle_rgb(ciclo_atv, 209, 2, 2);
 */ 
 
-
 // Defines
 #define GREEN_LED_PIN 11
 #define BLUE_LED_PIN 12
