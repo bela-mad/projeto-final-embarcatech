@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "./include/animation.h"
 #include "./include/button.h"
 #include "./include/buzzer.h"
 #include "./include/font.h"
@@ -35,7 +36,7 @@ int main() {
     pwm_led_setup(BLUE_LED_PIN, &slice_led_b);   // configura o PWM para o LED azul
 
     // Inicialização do I2C e do display OLED
-    i2c_init(I2C_PORT, 400 * 1000);                               // usando-o em 400KHz
+    i2c_init(I2C_PORT, 400 * 4000);                               // usando-o em 1600KHz
     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);                    // set the GPIO pin function to I2C
     gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);                    // set the GPIO pin function to I2C
     gpio_pull_up(I2C_SDA);                                        // pull up the data line
@@ -46,15 +47,8 @@ int main() {
 
     // debounce = delayed_by_ms(get_absolute_time(), 200); // inicializa o debounce
     
-    // Limpa o display, desenha a borda e a mensagem de boas-vindas e envia os dados para serem exibidos
-    // MODIFICAR MENSAGEM
-    ssd1306_fill(&ssd, false);
-    ssd1306_rect(&ssd, 2, 2, 124, 60, true);
-    ssd1306_draw_string(&ssd, "Bem-vindo", 30, 8);
-    ssd1306_draw_string(&ssd, "ao sistema", 28, 19);
-    ssd1306_draw_string(&ssd, "Pressione A", 20, 35);
-    ssd1306_draw_string(&ssd, "para iniciar", 18, 46);
-    ssd1306_send_data(&ssd);
+    // Desenha imagem de boas-vindas no display
+    ssd1306_draw_bitmap(&ssd, bitmap_128x64);
 
     // Aguarda o usuário pressionar o botão A (à esquerda) para iniciar o sistema
     while (gpio_get(BUTTON_A_PIN)) {
@@ -161,12 +155,13 @@ int main() {
             //     led_r_level = 0;
             // }
 
+        // Imprime um quadro com os dados obtidos no display OLED
         ssd1306_fill(&ssd, false); 
         ssd1306_rect(&ssd, 2, 2, 124, 60, true);   
         ssd1306_draw_string(&ssd, "Umidade: ", 10, 8);
-        ssd1306_draw_string(&ssd, buffer_umid, 75, 8);  // Desenha a string no display
+        ssd1306_draw_string(&ssd, buffer_umid, 75, 8);       // Desenha a string no display
         ssd1306_draw_string(&ssd, "Chuva: ", 10, 19);
-        ssd1306_draw_string(&ssd, buffer_chuva, 65, 19);  // Desenha a string no display
+        ssd1306_draw_string(&ssd, buffer_chuva, 65, 19);     // Desenha a string no display
         ssd1306_draw_string(&ssd, "Desloc: 20m/s@", 10, 30);
 
         ssd1306_send_data(&ssd);
