@@ -12,7 +12,7 @@
 #define ADC_CHANNEL_1 1
 
 // Cabeçalhos das funções
-void setup_joystick();
+void joystick_setup();
 void joystick_read_axis(uint16_t *vrx_value, uint16_t *vry_value);
 
 #endif

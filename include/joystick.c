@@ -2,22 +2,36 @@
 
 // Funções
 
-// Função para configurar o joystick (pinos de leitura e ADC)
-void setup_joystick() {
-    adc_init();         // Inicializa o módulo ADC
-    adc_gpio_init(VRX); // Configura o pino VRX (eixo X) para entrada ADC
-    adc_gpio_init(VRY); // Configura o pino VRY (eixo Y) para entrada ADC
+/**
+ * @brief Inicializa o módulo ADC e configura os pinos do joystick (VRX e VRY).
+ *
+ * Inicializa o módulo ADC do microcontrolador e configura os pinos responsáveis 
+ * pelos eixos X (VRX) e Y (VRY) do joystick para leitura de valores analógicos.
+ * 
+ */
+void joystick_setup() {
+    adc_init();         
+    adc_gpio_init(VRX); 
+    adc_gpio_init(VRY); 
 }
 
-// Função para ler os valores dos eixos do joystick (X e Y)
+/**
+ * @brief Lê os valores dos eixos X e Y do joystick.
+ *
+ * Realiza a leitura dos valores analógicos dos eixos X e Y do joystick usando o módulo ADC, 
+ * de acordo com o canal. Os valores lidos são armazenados nas variáveis passadas como
+ * argumento (vrx_value e vry_value).
+ *
+ * @param vrx_value Ponteiro para a variável que armazenará o valor do eixo X.
+ * @param vry_value Ponteiro para a variável que armazenará o valor do eixo Y.
+ */
 void joystick_read_axis(uint16_t *vrx_value, uint16_t *vry_value) {
-    // Leitura do valor do eixo Y do joystick
-    adc_select_input(ADC_CHANNEL_0); // seleciona o canal ADC para o eixo Y
-    sleep_us(2);                     // pequeno delay para estabilidade
-    *vrx_value = adc_read();         // lê o valor do eixo X (0-4095)
     
-    // Leitura do valor do eixo X do joystick
-    adc_select_input(ADC_CHANNEL_1); // seleciona o canal ADC para o eixo X
+    adc_select_input(ADC_CHANNEL_0); 
     sleep_us(2);                     // pequeno delay para estabilidade
-    *vry_value = adc_read();         // lê o valor do eixo Y (0-4095)
+    *vrx_value = adc_read();         
+    
+    adc_select_input(ADC_CHANNEL_1); 
+    sleep_us(2);                     // pequeno delay para estabilidade
+    *vry_value = adc_read();         
 }

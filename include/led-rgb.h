@@ -1,7 +1,6 @@
 #ifndef LED_RGB_H
 #define LED_RGB_H
 
-// Importações
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/pwm.h"
@@ -31,4 +30,4 @@
 void pwm_led_setup(uint led, uint *slice);
 void pwm_set_duty_cycle_rgb(uint ciclo_ativo, uint8_t r, uint8_t g, uint8_t b);
 
-#endif // LED_RGB_H
+#endif

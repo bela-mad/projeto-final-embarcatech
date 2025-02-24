@@ -8,7 +8,7 @@
  * Configura o pino GPIO fornecido como saída PWM para controlar o buzzer.
  * O PWM é desativado inicialmente até que seja ativado por outra função.
  * 
- * @param gpio Pino GPIO conectado ao buzzer
+ * @param gpio Pino GPIO conectado ao buzzer.
  */
 uint buzzer_init(uint8_t gpio) {
     gpio_set_function(gpio, GPIO_FUNC_PWM);        
@@ -22,7 +22,7 @@ uint buzzer_init(uint8_t gpio) {
  * @brief Liga o buzzer em uma frequência específica.
  * 
  * Configura e ativa o sinal PWM no pino especificado para gerar um som na frequência desejada.
- * O PWM é configurado com um divisor de clock fixo e um duty cycle de aproximadamente 80%.
+ * O PWM é configurado com um divisor de clock fixo e um duty cycle de aproximadamente 70%.
  * 
  * @param gpio Pino GPIO conectado ao buzzer.
  * @param freq Frequência do som gerado pelo buzzer (em Hz).

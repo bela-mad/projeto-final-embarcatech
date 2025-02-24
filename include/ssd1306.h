@@ -2,6 +2,7 @@
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 
+// Defines
 #define WIDTH 128
 #define HEIGHT 64
 
@@ -34,6 +35,7 @@ typedef struct {
   uint8_t port_buffer[2];
 } ssd1306_t;
 
+// Cabeçalhos das funções
 void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height, bool external_vcc, uint8_t address, i2c_inst_t *i2c);
 void ssd1306_config(ssd1306_t *ssd);
 void ssd1306_command(ssd1306_t *ssd, uint8_t command);
