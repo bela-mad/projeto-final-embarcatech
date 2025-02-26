@@ -3,6 +3,10 @@
 #include "hardware/i2c.h"
 
 // Defines
+#define I2C_PORT i2c1
+#define I2C_SDA 14
+#define I2C_SCL 15
+#define endereco 0x3C
 #define WIDTH 128
 #define HEIGHT 64
 
