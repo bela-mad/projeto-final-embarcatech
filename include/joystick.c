@@ -11,8 +11,8 @@
  */
 void joystick_setup() {
     adc_init();         
-    adc_gpio_init(VRX); 
     adc_gpio_init(VRY); 
+    adc_gpio_init(VRX); 
 }
 
 /**
@@ -29,9 +29,9 @@ void joystick_read_axis(uint16_t *vrx_value, uint16_t *vry_value) {
     
     adc_select_input(ADC_CHANNEL_0); 
     sleep_us(2);                     // pequeno delay para estabilidade
-    *vrx_value = adc_read();         
+    *vry_value = adc_read();         
     
     adc_select_input(ADC_CHANNEL_1); 
     sleep_us(2);                     // pequeno delay para estabilidade
-    *vry_value = adc_read();         
+    *vrx_value = adc_read();         
 }
