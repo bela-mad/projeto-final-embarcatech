@@ -34,7 +34,7 @@ void buzzer_turn_on(uint8_t gpio, uint slice, uint16_t freq) {
 
     pwm_set_clkdiv(slice, clock_div);              
     pwm_set_wrap(slice, wrap);                    
-    pwm_set_gpio_level(gpio, (wrap * 7) / 10);    
+    pwm_set_gpio_level(gpio, (wrap * 5) / 10);    
     pwm_set_enabled(slice, true);                   // habilita o PWM
 }
 

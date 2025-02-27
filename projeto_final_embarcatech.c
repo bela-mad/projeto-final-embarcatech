@@ -136,7 +136,7 @@ int main() {
             snprintf(buffer_risco, sizeof(buffer_risco), "Critico");
 
             // Acionamento do buzzer
-            buzzer_beep(BUZZER_A_PIN, slice_buzzer, 900, 600);
+            buzzer_beep(BUZZER_A_PIN, slice_buzzer, 2000, 600);
 
             // Acionamento do LED RGB com ritmação 
             for (int ciclo_atv = 200; ciclo_atv <= 3000; ciclo_atv += 30) {
