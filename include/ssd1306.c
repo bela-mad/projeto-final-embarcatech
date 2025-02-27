@@ -223,7 +223,6 @@ void ssd1306_vline(ssd1306_t *ssd, uint8_t x, uint8_t y0, uint8_t y1, bool value
         ssd1306_pixel(ssd, x, y, value);
 }
 
-
 /**
  * @brief Desenha um caractere no display SSD1306.
  *

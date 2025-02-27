@@ -10,11 +10,10 @@
 #include "./include/ssd1306.h"
 
 // Declaração de variáveis
-ssd1306_t ssd;
-uint16_t offset;
-uint16_t volume;
-uint32_t last_time = 0;                                                 // variável para contar o último tempo verificado
-uint16_t vrx_value, vry_value;                                          // variáveis dos valores mai recentes de x e y do joystick
+ssd1306_t ssd;                                                          // variável para a estrutura do display
+uint16_t offset;                                                        // variável do offset do microfone
+uint16_t volume;                                                        // variável do volume do microfone
+uint16_t vrx_value, vry_value;                                          // variáveis dos valores mais recentes de x e y do joystick
 uint slice_buzzer, slice_led_r, slice_led_g, slice_led_b;               // variáveis para armazenar os slices de PWM correspondentes ao buzzer e aos LEDs
 uint16_t nivel_chuva = 0, nivel_umidade = 0, aceleracao = 0;            // variáveis para armazenar os valores de precipitação, umidade do solo e aceleração do solo
 char buffer_umid[8], buffer_chuva[8], buffer_acel[8], buffer_risco[16]; // variáveis de buffer para armazenar os valores como string
@@ -133,13 +132,13 @@ int main() {
 
         // RISCO CRÍTICO E LED VERMELHO
         if (aceleracao > 5 || nivel_umidade >= 61 || (nivel_umidade >= 41 && nivel_chuva >= 26)) {
+            // Armazenamento do tipo de risco no seu buffer
             snprintf(buffer_risco, sizeof(buffer_risco), "Critico");
 
+            // Acionamento do buzzer
             buzzer_beep(BUZZER_A_PIN, slice_buzzer, 900, 600);
 
-            // enviar dados a uma central fictícia
-            // fazer a letra í
-
+            // Acionamento do LED RGB com ritmação 
             for (int ciclo_atv = 200; ciclo_atv <= 3000; ciclo_atv += 30) {
                 pwm_set_duty_cycle_rgb(ciclo_atv, 209, 2, 2);
                 sleep_ms(10);
@@ -152,8 +151,10 @@ int main() {
 
         // RISCO BAIXO E LED VERDE
         else if (nivel_umidade <= 20 && nivel_chuva < 5) {
+            // Armazenamento do tipo de risco no seu buffer
             snprintf(buffer_risco, sizeof(buffer_risco), "Baixo");
 
+            // Acionamento do LED RGB com ritmação 
             for (int ciclo_atv = 200; ciclo_atv <= 3000; ciclo_atv += 30) {
                 pwm_set_duty_cycle_rgb(ciclo_atv, 13, 201, 0);
                 sleep_ms(10);
@@ -166,8 +167,10 @@ int main() {
 
         // RISCO MODERADO E LED AMARELO
         else if ((nivel_umidade <= 40 && nivel_chuva < 26) || (nivel_umidade >= 21 && nivel_umidade <= 40 && nivel_chuva >= 26)) {
+            // Armazenamento do tipo de risco no seu buffer
             snprintf(buffer_risco, sizeof(buffer_risco), "Moderado");
 
+            // Acionamento do LED RGB com ritmação 
             for (int ciclo_atv = 200; ciclo_atv <= 3000; ciclo_atv += 30) {
                 pwm_set_duty_cycle_rgb(ciclo_atv, 255, 230, 0);
                 sleep_ms(10);
@@ -180,8 +183,10 @@ int main() {
 
         // RISCO ALTO E LED LARANJA
         else {
+            // Armazenamento do tipo de risco no seu buffer
             snprintf(buffer_risco, sizeof(buffer_risco), "Alto");
 
+            // Acionamento do LED RGB com ritmação 
             for (int ciclo_atv = 200; ciclo_atv <= 3000; ciclo_atv += 30) {
                 pwm_set_duty_cycle_rgb(ciclo_atv, 207, 80, 6);
                 sleep_ms(10);
@@ -203,9 +208,6 @@ int main() {
         ssd1306_draw_string(&ssd, buffer_acel, 68, 30);
         ssd1306_draw_string(&ssd, "Risco ", 12, 46);
         ssd1306_draw_string(&ssd, buffer_risco, 58, 46);
-
-        // printf("Volume: %d\n", volume);
-        // printf("Aceleração: %d\n", aceleracao);
 
         ssd1306_send_data(&ssd);
     }
